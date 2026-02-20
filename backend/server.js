@@ -10,23 +10,13 @@ const usersRoutes = require('./routes/users');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-/*
-  CORS CONFIG
-  Allow:
-  - Local React dev
-  - Vercel production frontend
-*/
+// CORS - temporarily open for debugging
 app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://clinic-audit-saas.vercel.app"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  origin: true,
   credentials: true
 }));
 
-// Parse JSON
+// Body parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -55,6 +45,4 @@ app.use((err, req, res, next) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Clinic Audit SaaS API running on port ${PORT}`);
-  console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🌐 Health check: http://localhost:${PORT}/health`);
 });
